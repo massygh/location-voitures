@@ -1,0 +1,37 @@
+.vehicle-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.vehicle-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+.vehicle-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.vehicle-card .card-body {
+  padding: var(--spacing-md);
+}
+
+.vehicle-card .card-title {
+  color: var(--dark);
+  font-weight: bold;
+  margin-bottom: var(--spacing-sm);
+}
+
+.vehicle-card .card-subtitle {
+  color: var(--secondary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.vehicle-card .price {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  font-weight: bold;
+} 

@@ -1,0 +1,242 @@
+/* Import des fichiers de base */
+@import 'base/variables.css';
+
+/* Import des composants */
+@import 'components/cards.css';
+
+/* Import des layouts */
+@import 'layouts/main.css';
+
+/* Import des pages */
+@import 'pages/home.css';
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.login-form .input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+
+.login-form .form-control {
+    border-left: none;
+}
+
+.login-form .form-control:focus {
+    border-color: #dee2e6;
+    box-shadow: none;
+}
+
+.login-form .input-group:focus-within .input-group-text {
+    border-color: #86b7fe;
+}
+
+/* Styles pour la section héro avec vidéo */
+.hero-section {
+    position: relative;
+    height: 100vh;  /* Prend toute la hauteur de l'écran */
+    width: 100%;
+    overflow: hidden;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Assure que la vidéo couvre tout l'espace sans déformation */
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);  /* Un peu plus sombre */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding-top: 20vh;  /* Centre verticalement le contenu */
+}
+
+/* Assure que le contenu après la vidéo commence au bon endroit */
+.categories-section {
+    background: #f8f9fa;  /* Fond légèrement gris */
+    position: relative;
+    z-index: 2;
+    padding: 80px 0;  /* Plus d'espace vertical */
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.category-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.category-icon {
+    font-size: 2.5rem;
+    color: #2c3e50;  /* Couleur plus foncée pour les icônes */
+    margin-bottom: 15px;
+}
+
+.category-title {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Style pour la section véhicules */
+.featured-vehicles {
+    background: white;
+    padding: 80px 0;
+}
+
+.vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.vehicle-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.vehicle-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+}
+
+/* Style pour la section avantages */
+.features-section {
+    background: #f8f9fa;
+    padding: 80px 0;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 40px 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #2c3e50;
+    border-radius: 3px;
+}
+
+/* Styles pour le bouton de défilement */
+.scroll-down-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    z-index: 3;
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bounce 2s infinite;
+    transition: all 0.3s ease;
+}
+
+.scroll-down-btn:hover {
+    color: white;
+    border-color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* Ajout du comportement de défilement doux */
+html {
+    scroll-behavior: smooth;
+} 

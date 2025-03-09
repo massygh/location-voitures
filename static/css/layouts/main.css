@@ -1,0 +1,15 @@
+/* Styles de base du body et main qui étaient dans l'ancien style.css */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Styles de la navbar */
+.navbar-brand {
+    font-weight: bold;
+} 

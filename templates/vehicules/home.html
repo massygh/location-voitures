@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<!-- Hero Section avec vidéo en arrière-plan -->
+<section class="hero-section text-center">
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="{% static 'videos/hero-bg.mp4' %}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    <div class="hero-content">
+        <h1 class="display-2 fw-bold text-white mb-4">Votre Voyage, Notre Passion</h1>
+        <p class="lead text-white mb-5">Découvrez notre sélection exclusive de véhicules pour tous vos besoins</p>
+        <div class="hero-buttons">
+            <a href="{% url 'vehicules:home' %}" class="btn btn-primary btn-lg px-5 me-3">Voir nos véhicules</a>
+            <a href="#" class="btn btn-outline-light btn-lg px-5">Nos services</a>
+        </div>
+    </div>
+    <!-- Ajout du bouton de défilement -->
+    <a href="#categories" class="scroll-down-btn">
+        <i class="fas fa-chevron-down"></i>
+    </a>
+</section>
+
+<!-- Section Catégories -->
+<section id="categories" class="categories-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Nos Catégories</h2>
+        <div class="row g-4">
+            {% for category in 'CITADINE,BERLINE,SUV,UTILITAIRE,LUXE'|split:',' %}
+            <div class="col-md-4 col-lg-2">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3 class="category-title">{{ category|title }}</h3>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Section Véhicules -->
+<section class="featured-vehicles py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Véhicules Disponibles</h2>
+        <div class="vehicle-grid">
+            {% for vehicule in vehicules %}
+            <div class="vehicle-card">
+                <div class="vehicle-card-image">
+                    {% if vehicule.image %}
+                    <img src="{{ vehicule.image.url }}" alt="{{ vehicule.nom }}">
+                    {% endif %}
+                    <div class="vehicle-card-category">{{ vehicule.categorie }}</div>
+                </div>
+                <div class="vehicle-card-content">
+                    <h3 class="vehicle-title">{{ vehicule.nom }}</h3>
+                    <div class="vehicle-specs">
+                        <span class="spec-item"><i class="fas fa-car"></i> {{ vehicule.marque }}</span>
+                        <span class="spec-item"><i class="fas fa-calendar"></i> {{ vehicule.annee }}</span>
+                    </div>
+                    <p class="vehicle-description">{{ vehicule.description|truncatewords:15 }}</p>
+                    <div class="vehicle-card-footer">
+                        <div class="price">{{ vehicule.prix_jour }}€<span>/jour</span></div>
+                        <a href="#" class="btn btn-primary">Réserver</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center">
+                <p>Aucun véhicule disponible pour le moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Section Avantages -->
+<section class="features-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Pourquoi Nous Choisir</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Assurance Complete</h3>
+                    <p>Tous nos véhicules sont entièrement assurés pour votre tranquillité</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Service 24/7</h3>
+                    <p>Notre équipe est disponible à tout moment pour vous assister</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Prix Compétitifs</h3>
+                    <p>Les meilleurs tarifs du marché pour des véhicules de qualité</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 
