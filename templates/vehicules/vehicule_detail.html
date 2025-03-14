@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="vehicle-detail py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Image du véhicule -->
+            <div class="col-lg-6 mb-4">
+                <div class="vehicle-image-main">
+                    {% if vehicule.image %}
+                    <img src="{{ vehicule.image.url }}" alt="{{ vehicule.nom }}" class="img-fluid rounded">
+                    {% else %}
+                    <img src="{% static 'images/default-car.jpg' %}" alt="Default" class="img-fluid rounded">
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Détails du véhicule -->
+            <div class="col-lg-6">
+                <div class="vehicle-info">
+                    <h1 class="vehicle-title mb-4">{{ vehicule.nom }}</h1>
+                    
+                    <div class="vehicle-badges mb-4">
+                        <span class="badge bg-primary">{{ vehicule.categorie }}</span>
+                        {% if vehicule.disponible %}
+                        <span class="badge bg-success">Disponible</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="vehicle-specs mb-4">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="spec-item">
+                                    <i class="fas fa-car me-2"></i>
+                                    <span class="spec-label">Marque:</span>
+                                    <span class="spec-value">{{ vehicule.marque }}</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="spec-item">
+                                    <i class="fas fa-cog me-2"></i>
+                                    <span class="spec-label">Modèle:</span>
+                                    <span class="spec-value">{{ vehicule.modele }}</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="spec-item">
+                                    <i class="fas fa-calendar me-2"></i>
+                                    <span class="spec-label">Année:</span>
+                                    <span class="spec-value">{{ vehicule.annee }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-description mb-4">
+                        <h3 class="h5 mb-3">Description</h3>
+                        <p>{{ vehicule.description }}</p>
+                    </div>
+
+                    <div class="vehicle-pricing mb-4">
+                        <div class="price-tag">
+                            <span class="amount">{{ vehicule.prix_jour }}€</span>
+                            <span class="period">/jour</span>
+                        </div>
+                    </div>
+
+                    <div class="booking-actions">
+                        <button class="btn btn-primary btn-lg w-100">
+                            <i class="fas fa-calendar-check me-2"></i>Réserver maintenant
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

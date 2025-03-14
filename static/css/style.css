@@ -9,6 +9,8 @@
 
 /* Import des pages */
 @import 'pages/home.css';
+@import 'pages/vehicles.css';
+@import 'pages/vehicle-detail.css';
 
 body {
     min-height: 100vh;

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -39,3 +39,11 @@ def logout_view(request):
 
 def register(request):
     return render(request, 'vehicules/register.html')
+
+def vehicules(request):
+    vehicules = Vehicule.objects.filter(disponible=True)
+    return render(request, 'vehicules/vehicules.html', {'vehicules': vehicules})
+
+def vehicule_detail(request, vehicule_id):
+    vehicule = get_object_or_404(Vehicule, id=vehicule_id)
+    return render(request, 'vehicules/vehicule_detail.html', {'vehicule': vehicule})

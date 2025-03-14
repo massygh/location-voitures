@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<!-- Hero Section avec effet parallax -->
+<section class="vehicles-hero-dark">
+    <div class="hero-overlay-dark"></div>
+    <div class="container position-relative">
+        <h1 class="display-4 text-center mb-4 text-white fw-bold">Notre Flotte Premium</h1>
+        <p class="lead text-center mb-4 text-white-50">Découvrez notre sélection exclusive de véhicules haut de gamme</p>
+        
+        <!-- Barre de recherche avec effet glassmorphism -->
+        <div class="search-bar-dark">
+            <form class="row g-3">
+                <div class="col-md-3">
+                    <select class="form-select form-select-dark" name="categorie">
+                        <option value="">Toutes les catégories</option>
+                        {% for cat in 'CITADINE,BERLINE,SUV,UTILITAIRE,LUXE'|split:',' %}
+                            <option value="{{ cat }}">{{ cat|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="date" class="form-control form-control-dark" name="date_debut" placeholder="Date de début">
+                </div>
+                <div class="col-md-3">
+                    <input type="date" class="form-control form-control-dark" name="date_fin" placeholder="Date de fin">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-2"></i>Rechercher
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="vehicles-page-dark py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Sidebar Filtres -->
+            <div class="col-lg-3">
+                <div class="filters-sidebar-dark">
+                    <h4 class="filter-title"><i class="fas fa-filter me-2"></i>Filtres</h4>
+                    
+                    <!-- Filtre Catégories -->
+                    <div class="filter-group">
+                        <h5 class="filter-group-title">
+                            <i class="fas fa-tags me-2"></i>Catégories
+                        </h5>
+                        <div class="filter-options">
+                            {% for category in 'CITADINE,BERLINE,SUV,UTILITAIRE,LUXE'|split:',' %}
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="{{ category }}" id="cat_{{ category }}">
+                                <label class="form-check-label" for="cat_{{ category }}">
+                                    {{ category|title }}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Filtre Prix -->
+                    <div class="filter-group">
+                        <h5 class="filter-group-title">
+                            <i class="fas fa-euro-sign me-2"></i>Prix
+                        </h5>
+                        <div class="filter-options">
+                            <div class="range-slider">
+                                <input type="range" class="form-range" id="priceRange" min="0" max="1000" step="50">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <span id="minPrice">0€</span>
+                                    <span id="maxPrice">1000€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Filtre Marques -->
+                    <div class="filter-group">
+                        <h5 class="filter-group-title">
+                            <i class="fas fa-car me-2"></i>Marques
+                        </h5>
+                        <div class="filter-options">
+                            {% for brand in 'BMW,Mercedes,Audi,Renault,Peugeot,Citroën'|split:',' %}
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="{{ brand }}" id="brand_{{ brand }}">
+                                <label class="form-check-label" for="brand_{{ brand }}">
+                                    {{ brand }}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary w-100 mt-4">
+                        <i class="fas fa-filter me-2"></i>Appliquer les filtres
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grille des véhicules -->
+            <div class="col-lg-9">
+                <div class="vehicles-header-dark mb-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="results-count mb-3 mb-md-0">
+                            <h2 class="h4 mb-0 text-white">{{ vehicules|length }} véhicules disponibles</h2>
+                        </div>
+                        <div class="d-flex gap-3 align-items-center">
+                            <div class="view-options">
+                                <button class="btn btn-outline-light btn-sm active" data-view="grid">
+                                    <i class="fas fa-th-large"></i>
+                                </button>
+                                <button class="btn btn-outline-light btn-sm" data-view="list">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                            <select class="form-select form-select-dark form-select-sm" style="width: auto;">
+                                <option>Prix croissant</option>
+                                <option>Prix décroissant</option>
+                                <option>Plus récents</option>
+                                <option>Mieux notés</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vehicle-grid-dark row g-4">
+                    {% for vehicule in vehicules %}
+                    <div class="col-md-6 col-lg-6">
+                        <div class="vehicle-card-dark">
+                            <!-- Image du véhicule -->
+                            <div class="vehicle-image-dark">
+                                {% if vehicule.image %}
+                                <img src="{{ vehicule.image.url }}" alt="{{ vehicule.nom }}" class="img-fluid">
+                                {% else %}
+                                <img src="{% static 'images/default-car.jpg' %}" alt="Default" class="img-fluid">
+                                {% endif %}
+                                <div class="vehicle-badges-dark">
+                                    <span class="badge bg-primary">{{ vehicule.categorie }}</span>
+                                    {% if vehicule.disponible %}
+                                    <span class="badge bg-success">Disponible</span>
+                                    {% endif %}
+                                </div>
+                                <div class="vehicle-overlay">
+                                    <a href="{% url 'vehicules:detail' vehicule.id %}" class="btn btn-primary">
+                                        <i class="fas fa-info-circle me-2"></i>Voir détails
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Détails du véhicule -->
+                            <div class="vehicle-details-dark">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h3 class="vehicle-title-dark">{{ vehicule.nom }}</h3>
+                                    <div class="price-dark">
+                                        <span class="amount">{{ vehicule.prix_jour }}€</span>
+                                        <span class="period">/jour</span>
+                                    </div>
+                                </div>
+                                <div class="vehicle-specs-dark">
+                                    <span class="spec-item-dark"><i class="fas fa-car me-2"></i>{{ vehicule.marque }}</span>
+                                    <span class="spec-item-dark"><i class="fas fa-calendar me-2"></i>{{ vehicule.annee }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div class="no-results-dark text-center py-5">
+                            <i class="fas fa-car-crash fa-3x mb-3"></i>
+                            <h3 class="text-white">Aucun véhicule disponible</h3>
+                            <p class="text-white-50">Veuillez modifier vos critères de recherche</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                <nav class="mt-5">
+                    <ul class="pagination pagination-dark justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

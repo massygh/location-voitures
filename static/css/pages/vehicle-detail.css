@@ -1,0 +1,116 @@
+.vehicle-detail-page {
+    background-color: #f8f9fa;
+}
+
+.vehicle-images img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.spec-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.spec-item i {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.price-tag {
+    text-align: center;
+}
+
+.price-tag .amount {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.price-tag .period {
+    font-size: 1rem;
+    color: #666;
+}
+
+.booking-card {
+    border-radius: 15px;
+}
+
+.vehicle-detail {
+    padding-top: 80px;
+}
+
+.vehicle-image-main {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.vehicle-image-main img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.vehicle-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.vehicle-badges .badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+}
+
+.vehicle-specs {
+    background: var(--light);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.spec-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.spec-label {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.spec-value {
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.vehicle-description {
+    line-height: 1.6;
+}
+
+.price-tag {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.price-tag .amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.price-tag .period {
+    color: var(--secondary-color);
+}
+
+.booking-actions {
+    margin-top: 2rem;
+} 
