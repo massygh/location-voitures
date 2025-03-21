@@ -18,9 +18,8 @@
     position: relative;
     height: 40vh;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('/static/images/back.jpg');
-    background-size: 100% 40%;
-    background-position: center;
-    background-attachment: fixed;
+    background-size: cover;
+    background-position: center 50%;
     display: flex;
     align-items: center;
     overflow: hidden;

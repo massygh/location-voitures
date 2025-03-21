@@ -18,12 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Gestion du slider de prix
     const priceRange = document.getElementById('priceRange');
-    const minPrice = document.getElementById('minPrice');
     const maxPrice = document.getElementById('maxPrice');
 
-    if (priceRange) {
-        priceRange.addEventListener('input', (e) => {
-            maxPrice.textContent = `${e.target.value}€`;
+    if (priceRange && maxPrice) {
+        priceRange.addEventListener('input', function() {
+            maxPrice.textContent = this.value + '€';
         });
     }
 }); 

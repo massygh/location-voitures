@@ -43,61 +43,44 @@
             <!-- Sidebar Filtres -->
             <div class="col-lg-3">
                 <div class="filters-sidebar-dark">
-                    <h4 class="filter-title"><i class="fas fa-filter me-2"></i>Filtres</h4>
-                    
-                    <!-- Filtre Catégories -->
-                    <div class="filter-group">
-                        <h5 class="filter-group-title">
-                            <i class="fas fa-tags me-2"></i>Catégories
-                        </h5>
-                        <div class="filter-options">
-                            {% for category in 'CITADINE,BERLINE,SUV,UTILITAIRE,LUXE'|split:',' %}
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="{{ category }}" id="cat_{{ category }}">
-                                <label class="form-check-label" for="cat_{{ category }}">
-                                    {{ category|title }}
-                                </label>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    
-                    <!-- Filtre Prix -->
-                    <div class="filter-group">
-                        <h5 class="filter-group-title">
-                            <i class="fas fa-euro-sign me-2"></i>Prix
-                        </h5>
-                        <div class="filter-options">
-                            <div class="range-slider">
-                                <input type="range" class="form-range" id="priceRange" min="0" max="1000" step="50">
-                                <div class="d-flex justify-content-between mt-2">
-                                    <span id="minPrice">0€</span>
-                                    <span id="maxPrice">1000€</span>
+                    <h3 class="filter-title">Filtres</h3>
+                    <form method="get" action="">
+                        <!-- Filtre par marque -->
+                        <div class="filter-group">
+                            <h4 class="filter-group-title">Marques</h4>
+                            <div class="filter-options">
+                                {% for marque in marques %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="marque" 
+                                           value="{{ marque.id }}" id="marque_{{ marque.id }}"
+                                           {% if marque.id in selected_marques %}checked{% endif %}>
+                                    <label class="form-check-label" for="marque_{{ marque.id }}">
+                                        {{ marque.nom }}
+                                    </label>
                                 </div>
+                                {% endfor %}
+                            </div>
+                            <!-- Bouton pour ajouter une nouvelle marque (admin seulement) -->
+                            {% if user.is_staff %}
+                            <a href="{% url 'admin:vehicules_marque_add' %}" class="btn btn-sm btn-primary mt-2">
+                                <i class="fas fa-plus"></i> Nouvelle marque
+                            </a>
+                            {% endif %}
+                        </div>
+
+                        <!-- Autres filtres existants -->
+                        <div class="filter-group">
+                            <h4 class="filter-group-title">Prix maximum</h4>
+                            <input type="range" class="form-range" id="priceRange" name="prix_max"
+                                   min="0" max="1000" step="50" value="{{ request.GET.prix_max|default:500 }}">
+                            <div class="d-flex justify-content-between">
+                                <span>0€</span>
+                                <span id="maxPrice">{{ request.GET.prix_max|default:500 }}€</span>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Filtre Marques -->
-                    <div class="filter-group">
-                        <h5 class="filter-group-title">
-                            <i class="fas fa-car me-2"></i>Marques
-                        </h5>
-                        <div class="filter-options">
-                            {% for brand in 'BMW,Mercedes,Audi,Renault,Peugeot,Citroën'|split:',' %}
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="{{ brand }}" id="brand_{{ brand }}">
-                                <label class="form-check-label" for="brand_{{ brand }}">
-                                    {{ brand }}
-                                </label>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-primary w-100 mt-4">
-                        <i class="fas fa-filter me-2"></i>Appliquer les filtres
-                    </button>
+
+                        <button type="submit" class="btn btn-primary w-100">Appliquer les filtres</button>
+                    </form>
                 </div>
             </div>
 
@@ -117,11 +100,10 @@
                                     <i class="fas fa-list"></i>
                                 </button>
                             </div>
-                            <select class="form-select form-select-dark form-select-sm" style="width: auto;">
-                                <option>Prix croissant</option>
-                                <option>Prix décroissant</option>
-                                <option>Plus récents</option>
-                                <option>Mieux notés</option>
+                            <select class="form-select form-select-dark form-select-sm" name="tri" onchange="this.form.submit()">
+                                <option value="recent" {% if tri_actuel == 'recent' %}selected{% endif %}>Plus récents</option>
+                                <option value="prix_croissant" {% if tri_actuel == 'prix_croissant' %}selected{% endif %}>Prix croissant</option>
+                                <option value="prix_decroissant" {% if tri_actuel == 'prix_decroissant' %}selected{% endif %}>Prix décroissant</option>
                             </select>
                         </div>
                     </div>

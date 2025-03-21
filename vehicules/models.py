@@ -11,7 +11,7 @@ class Vehicule(models.Model):
     ]
 
     nom = models.CharField(max_length=100)
-    marque = models.CharField(max_length=50)
+    marque = models.ForeignKey('Marque', on_delete=models.CASCADE, related_name='vehicules')
     modele = models.CharField(max_length=50)
     annee = models.IntegerField()
     categorie = models.CharField(max_length=20, choices=CATEGORIES)
@@ -33,3 +33,14 @@ class Vehicule(models.Model):
 
     def __str__(self):
         return f"{self.marque} {self.modele} ({self.annee})"
+
+class Marque(models.Model):
+    nom = models.CharField(max_length=100, unique=True)
+    logo = models.ImageField(upload_to='marques/', null=True, blank=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nom
+
+    class Meta:
+        ordering = ['nom']
